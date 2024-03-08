@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">Hotel Manager</string>
+
+    <dimen name="H0">26sp</dimen>
+    <dimen name="H1">22sp</dimen>
+    <dimen name="H2">20sp</dimen>
+    <dimen name="H3">18sp</dimen>
+    <dimen name="H4">16sp</dimen>
+    <dimen name="H5">14sp</dimen>
+    <dimen name="H6">12sp</dimen>
+    <dimen name="H7">10sp</dimen>
+
+    <string name="log_in">Log in</string>
+    <string name="new_here_sign_up">New here?\nSign up</string>
+    <string name="a_complete_suite_of_hotel_solutions">A Complete Suite of Hotel Solutions</string>
+    <string name="existing_user_log_in">Existing User?\nLog in</string>
+    <string name="sign_up">Sign up</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
