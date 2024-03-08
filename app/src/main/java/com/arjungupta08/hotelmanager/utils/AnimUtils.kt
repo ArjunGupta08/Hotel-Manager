@@ -26,3 +26,14 @@ fun rightInAnimation(view: View, context: Context) {
     // start the animation
     view.startAnimation(animSlideIn)
 }
+
+                        /* SHAKE ANIMATION*/
+fun shakeAnimation(view: View, context: Context) {
+    // load the animation
+    val animSlideIn: Animation = AnimationUtils.loadAnimation(
+        context,
+        R.anim.shake_animation
+    )
+    // start the animation
+    view.startAnimation(animSlideIn)
+}

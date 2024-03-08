@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="nav_cards_height">50dp</dimen>
+    <dimen name="textInputLayoutHeight">50dp</dimen>
+    <dimen name="button_height">45dp</dimen>
+
+    <!--Button Card View Theme-->
+    <style name="ButtonCardView" parent="CardView">
+        <item name="android:outlineAmbientShadowColor">@color/shadowColor</item>
+        <item name="android:shadowColor">@color/shadowColor</item>
+        <item name="cardElevation">10dp</item>
+        <item name="cardCornerRadius">10dp</item>
+        <item name="android:outlineSpotShadowColor">@color/shadowColor</item>
+    </style>
+
+    <!-- OnBoarding Text Input Layout Theme-->
+    <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="boxStrokeWidth">0.5dp</item>
+        <item name="boxStrokeWidthFocused">1dp</item>
+        <item name="boxStrokeColor">@color/secondary</item>
+        <item name="strokeWidth">0.5dp</item>
+        <item name="android:background">@color/white</item>
+        <item name="hintTextColor">@color/textHighlighted</item>
+        <item name="background">@color/white</item>
+        <item name="boxCornerRadiusBottomStart">10dp</item>
+        <item name="boxCornerRadiusBottomEnd">10dp</item>
+        <item name="boxCornerRadiusTopEnd">10dp</item>
+        <item name="boxCornerRadiusTopStart">10dp</item>
+    </style>
+
+</resources>
