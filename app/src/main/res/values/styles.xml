@@ -14,7 +14,6 @@
 
     <!-- OnBoarding Text Input Layout Theme-->
     <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
-
         <item name="boxStrokeWidth">0.5dp</item>
         <item name="boxStrokeWidthFocused">1dp</item>
         <item name="boxStrokeColor">@color/darkBackground</item>
@@ -27,7 +26,38 @@
         <item name="boxCornerRadiusBottomEnd">10dp</item>
         <item name="boxCornerRadiusTopEnd">10dp</item>
         <item name="boxCornerRadiusTopStart">10dp</item>
+    </style>
 
+    <style name="ClickableTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <!--Box Stroke-->
+        <item name="boxStrokeWidth">0.5dp</item>
+        <item name="boxStrokeWidthFocused">1dp</item>
+        <item name="boxStrokeColor">@color/darkBackground</item>
+        <!--        <item name="android:textColorHint">@color/secondary</item>-->
+        <item name="hintTextColor">@color/darkBackground</item>
+        <!--End Icon-->
+        <item name="endIconMode">custom</item>
+        <item name="endIconDrawable">@drawable/svg_arrow_down</item>
+        <item name="endIconTint">@color/black</item>
+        <!--Radius-->
+        <item name="boxCornerRadiusBottomStart">10dp</item>
+        <item name="boxCornerRadiusBottomEnd">10dp</item>
+        <item name="boxCornerRadiusTopEnd">10dp</item>
+        <item name="boxCornerRadiusTopStart">10dp</item>
+    </style>
+
+    <!--Card View Theme-->
+    <style name="CardViewTheme" parent="CardView">
+        <item name="android:outlineAmbientShadowColor">@color/darkBackground</item>
+        <item name="android:shadowColor">@color/darkBackground</item>
+        <item name="android:outlineSpotShadowColor">@color/darkBackground</item>
+    </style>
+
+    <!--Card View Theme-->
+    <style name="OnBoardingCardViewTheme" parent="CardView">
+        <item name="android:outlineAmbientShadowColor">@color/darkBackground</item>
+        <item name="android:shadowColor">@color/darkBackground</item>
+        <item name="cardElevation">8dp</item>
     </style>
 
 </resources>

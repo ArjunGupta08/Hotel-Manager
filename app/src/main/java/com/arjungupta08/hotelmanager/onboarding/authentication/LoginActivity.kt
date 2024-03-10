@@ -1,4 +1,4 @@
-package com.arjungupta08.hotelmanager.authentication
+package com.arjungupta08.hotelmanager.onboarding.authentication
 
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity

@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import com.arjungupta08.hotelmanager.authentication.LoginActivity
+import com.arjungupta08.hotelmanager.onboarding.authentication.LoginActivity
 import com.arjungupta08.hotelmanager.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

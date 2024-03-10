@@ -23,7 +23,6 @@ class FirstOnboarding : AppCompatActivity() {
             isSingleSelected = true
             isChainSelected = false
 
-
             val colorResId = R.color.grey10 // Replace with your color resource ID
             val color = ContextCompat.getColor(applicationContext, colorResId)
             bindingMobile.cardChain.strokeColor = color
@@ -42,7 +41,7 @@ class FirstOnboarding : AppCompatActivity() {
             val colorResId = R.color.grey10 // Replace with your color resource ID
             val color = ContextCompat.getColor(applicationContext, colorResId)
             bindingMobile.cardSingle.strokeColor = color
-//
+
             val colorResId1 = R.color.black // Replace with your color resource ID
             val color1 = ContextCompat.getColor(applicationContext, colorResId1)
             bindingMobile.cardChain.strokeColor = color1
@@ -50,11 +49,11 @@ class FirstOnboarding : AppCompatActivity() {
 
         bindingMobile.cardSingleNext.setOnClickListener {
             if (isSingleSelected) {
-//                val intent = Intent(this, SecondOnboardingScreen::class.java)
-//                startActivity(intent)
+                val intent = Intent(this, SecondOnboardingActivity::class.java)
+                startActivity(intent)
             } else if (isChainSelected){
-//                val intent = Intent(this, SecondChainOnboardingActivity::class.java)
-//                startActivity(intent)
+                val intent = Intent(this, SecondOnboardingActivity::class.java)
+                startActivity(intent)
             } else{
                 Toast.makeText(this, "Please Select Property Type", Toast.LENGTH_SHORT).show()
             }
