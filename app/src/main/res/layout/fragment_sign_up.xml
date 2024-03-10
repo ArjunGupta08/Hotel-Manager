@@ -95,7 +95,7 @@
             android:layout_height="wrap_content"
             style="@style/TextInputLayoutStyle"
             android:hint="Phone Number"
-            app:placeholderText="+91 0000000000"
+            app:placeholderText="0000000000"
             android:layout_marginTop="10dp"
             app:endIconMode="clear_text"
             app:endIconTint="@color/black"
@@ -108,6 +108,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textSize="@dimen/H5"
+                android:maxLength="10"
                 android:fontFamily="@font/roboto"
                 android:inputType="number"
                 android:textColorHint="@color/darkBackground"
@@ -135,7 +136,7 @@
                 android:layout_height="match_parent"
                 android:textSize="@dimen/H5"
                 android:fontFamily="@font/roboto"
-                android:inputType="text"
+                android:inputType="textEmailAddress"
                 android:textColorHint="@color/darkBackground"
                 android:textColor="@color/darkBackground" />
 

@@ -1,11 +1,13 @@
 package com.arjungupta08.hotelmanager.authentication
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.arjungupta08.hotelmanager.databinding.FragmentSignUpBinding
+import com.arjungupta08.hotelmanager.onboarding.FirstOnboarding
 import com.arjungupta08.hotelmanager.utils.shakeAnimation
 
 class SignUpFragment : Fragment() {
@@ -24,7 +26,6 @@ class SignUpFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         bindingMobile.cardCreateAccount.setOnClickListener {
-
             if (bindingMobile.firstNameText.text!!.isEmpty()) {
                 shakeAnimation(bindingMobile.firstNameLayout, requireContext())
                 bindingMobile.lastNameLayout.isErrorEnabled = false
@@ -67,7 +68,6 @@ class SignUpFragment : Fragment() {
     }
 
     private fun signUpMobile() {
-
+        startActivity(Intent(context, FirstOnboarding::class.java))
     }
-
 }
