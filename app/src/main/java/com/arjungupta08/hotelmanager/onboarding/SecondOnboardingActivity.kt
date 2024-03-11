@@ -1,16 +1,15 @@
 package com.arjungupta08.hotelmanager.onboarding
 
-import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ArrayAdapter
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import com.arjungupta08.hotelmanager.BuildConfig
 import com.arjungupta08.hotelmanager.R
@@ -33,10 +32,19 @@ class SecondOnboardingActivity : AppCompatActivity() {
     private var isImageSelected = false
     private var isImageEdit = false
 
-    companion object {
-        private const val PICK_IMAGE_REQUEST_CODE = 0
-    }
 
+    private val contract = registerForActivityResult(ActivityResultContracts.GetContent()){
+        try {
+            imageUri = it
+            isImageSelected = true
+            setMargins(bindingMobile.galleryImg, 0, 0, 0, 0)
+            bindingMobile.galleryImg.setImageURI(imageUri)
+        } catch (e: RuntimeException) {
+            Log.d("cropperOnPersonal", e.toString())
+        } catch (e: ClassCastException) {
+            Log.d("cropperOnPersonal", e.toString())
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bindingMobile = ActivitySecondOnboardingBinding.inflate(layoutInflater)
@@ -117,27 +125,7 @@ class SecondOnboardingActivity : AppCompatActivity() {
     }
 
     private fun openGallery() {
-        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        startActivityForResult(intent, Companion.PICK_IMAGE_REQUEST_CODE)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == Companion.PICK_IMAGE_REQUEST_CODE && resultCode == RESULT_OK && data != null){
-            imageUri = data.data!!
-            if (imageUri != null) {
-                try {
-                    isImageSelected = true
-                    setMargins(bindingMobile.galleryImg,0,0,0,0)
-                    bindingMobile.galleryImg.setImageURI(imageUri)
-                }catch(e:RuntimeException){
-                    Log.d("cropperOnPersonal", e.toString())
-                }catch(e:ClassCastException){
-                    Log.d("cropperOnPersonal", e.toString())
-                }
-            }
-        }
+        contract.launch("image/*")
     }
 
     private fun placesAPIMobile() {
