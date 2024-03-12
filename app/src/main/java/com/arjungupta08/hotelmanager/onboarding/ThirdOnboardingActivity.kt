@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.widget.doAfterTextChanged
+import com.arjungupta08.hotelmanager.DashboardActivity
 import com.arjungupta08.hotelmanager.databinding.ActivityThirdOnboardingBinding
 import com.arjungupta08.hotelmanager.utils.shakeAnimation
 
@@ -76,13 +77,13 @@ class ThirdOnboardingActivity : AppCompatActivity() {
     private fun sendDataMobile() {
         val starCategory = bindingMobile.ratingBar.rating.toString()
         val roomsInProperty = bindingMobile.roomCount.text.toString()
-//        val intent = (Intent(this@ThirdSingleOnboardingScreen, FinalOnboardingScreen::class.java))
-//                        val options = ActivityOptions.makeSceneTransitionAnimation(this@ThirdSingleOnboardingScreen,
-//                            android.util.Pair(bindingMobile!!.logo,"logo_img"),
-//                            android.util.Pair(bindingMobile!!.onBoardingImg,"onBoardingImg")
+        val intent = (Intent(this, DashboardActivity::class.java))
+//                        val options = ActivityOptions.makeSceneTransitionAnimation(this,
+//                        android.util.Pair(bindingMobile!!.logo,"logo_img"),
+//                        android.util.Pair(bindingMobile!!.onBoardingImg,"onBoardingImg")
 //                        startActivity(intent, options)
-//        startActivity(intent)
-//        finish()
+        startActivity(intent)
+        finish()
     }
 
 }
