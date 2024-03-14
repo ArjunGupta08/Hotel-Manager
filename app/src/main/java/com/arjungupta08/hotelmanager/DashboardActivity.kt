@@ -2,9 +2,14 @@ package com.arjungupta08.hotelmanager
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
+import androidx.fragment.app.Fragment
 import com.arjungupta08.hotelmanager.databinding.ActivityDashboardActivtyBinding
+import com.arjungupta08.hotelmanager.utils.bottomSlideInAnimation
+import com.google.android.material.card.MaterialCardView
 
 class DashboardActivity : AppCompatActivity() {
     private lateinit var binding : ActivityDashboardActivtyBinding
@@ -53,6 +58,36 @@ class DashboardActivity : AppCompatActivity() {
 
         binding.quickReservation.setOnClickListener {
 
+        }
+    }
+    private fun isCardSelected(card: MaterialCardView, text: TextView) {
+
+        binding.dashboardCard.setCardBackgroundColor(
+            ContextCompat.getColor(
+                applicationContext,
+                R.color.white
+            )
+        )
+        binding.dashboardTxt.setTextColor(
+            ContextCompat.getColor(
+                applicationContext,
+                R.color.darkBackground
+            )
+        )
+
+        card.setCardBackgroundColor(ContextCompat.getColor(applicationContext, R.color.black))
+        text.setTextColor(ContextCompat.getColor(applicationContext, R.color.white))
+    }
+
+    private fun replaceFragment(fragment: Fragment) {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.dashboardFragmentContainer,fragment)
+        transaction.commit()
+
+        bottomSlideInAnimation(binding.dashboardFragmentContainer, applicationContext)
+
+        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
         }
     }
 
