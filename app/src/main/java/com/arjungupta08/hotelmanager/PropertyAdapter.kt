@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class HotelsAdapter(val context: Context, private val itemList: List<HotelsDataClass>) : RecyclerView.Adapter<HotelsAdapter.ViewHolder>() {
+class PropertyAdapter(val context: Context, private val itemList: List<PropertyDataClass>) : RecyclerView.Adapter<PropertyAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_properties, parent, false)
@@ -20,7 +20,7 @@ class HotelsAdapter(val context: Context, private val itemList: List<HotelsDataC
         holder.hotelName.text = item.hotelName
         holder.location.text = item.location
         holder.ratingText.text = item.ratingText
-//        holder.rooms.text = item.rooms
+        holder.rooms.text = item.rooms
 
     }
 
@@ -30,9 +30,10 @@ class HotelsAdapter(val context: Context, private val itemList: List<HotelsDataC
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val hotelName = itemView.findViewById<TextView>(R.id.propertyName)
-        val location = itemView.findViewById<TextView>(R.id.location)
-        val ratingText = itemView.findViewById<TextView>(R.id.ratingText)
+        val hotelName: TextView = itemView.findViewById(R.id.propertyName)
+        val location: TextView = itemView.findViewById(R.id.location)
+        val ratingText: TextView = itemView.findViewById(R.id.ratingText)
+        val rooms: TextView = itemView.findViewById(R.id.rooms)
 
     }
 }

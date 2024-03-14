@@ -7,6 +7,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
+import com.arjungupta08.hotelmanager.dashboard.DashboardFragment
 import com.arjungupta08.hotelmanager.databinding.ActivityDashboardActivtyBinding
 import com.arjungupta08.hotelmanager.utils.bottomSlideInAnimation
 import com.google.android.material.card.MaterialCardView
@@ -21,6 +22,7 @@ class DashboardActivity : AppCompatActivity() {
         binding = ActivityDashboardActivtyBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        replaceFragment(DashboardFragment())
         toolBar()
 
     }
