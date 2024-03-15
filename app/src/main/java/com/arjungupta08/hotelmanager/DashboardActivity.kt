@@ -9,6 +9,7 @@ import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.arjungupta08.hotelmanager.dashboard.DashboardFragment
+import com.arjungupta08.hotelmanager.dashboard.addProperty.AddPropertyFragment
 import com.arjungupta08.hotelmanager.databinding.ActivityDashboardActivtyBinding
 import com.arjungupta08.hotelmanager.utils.bottomSlideInAnimation
 import com.google.android.material.card.MaterialCardView
@@ -23,7 +24,7 @@ class DashboardActivity : AppCompatActivity() {
         binding = ActivityDashboardActivtyBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        replaceFragment(DashboardFragment())
+        replaceFragment(AddPropertyFragment())
         toolBar()
         sideNav()
 
@@ -61,7 +62,7 @@ class DashboardActivity : AppCompatActivity() {
         }
 
         binding.quickAdd.setOnClickListener {
-
+            replaceFragment(AddPropertyFragment())
         }
     }
     private fun sideNav() {
@@ -71,6 +72,7 @@ class DashboardActivity : AppCompatActivity() {
         }
         binding.addPropertyCard.setOnClickListener {
             isCardSelected(binding.addPropertyCard, binding.addPropertyTxt)
+            replaceFragment(AddPropertyFragment())
             binding.quickAdd.isVisible = false
         }
         binding.helpCard.setOnClickListener {

@@ -12,6 +12,18 @@
         <item name="cardCornerRadius">10dp</item>
     </style>
 
+            <style name="RoundedCornerImage_Circle">
+                <item name="cornerSize">50%</item>
+            </style>
+
+            <style name="RoundedCornerImage_5">
+                <item name="cornerSize">5%</item>
+            </style>
+
+            <style name="RoundedCornerImage_10">
+                <item name="cornerSize">10%</item>
+            </style>
+
     <!-- OnBoarding Text Input Layout Theme-->
     <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="boxStrokeWidth">0.5dp</item>

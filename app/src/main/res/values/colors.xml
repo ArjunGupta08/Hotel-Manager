@@ -8,6 +8,7 @@
     <color name="secondaryBackground">#F7F7FC</color>
     <color name="unselectedBackground">#E6ECF5</color>
     <color name="darkBackground">#161B24</color>
+    <color name="selected_item">#6750A4</color>
 
     <!--  GREY SHADES  -->
     <color name="grey5">#F7F7FC</color>
