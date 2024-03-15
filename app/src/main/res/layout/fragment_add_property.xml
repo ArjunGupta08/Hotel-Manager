@@ -183,7 +183,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
-                android:hint="Property type">
+                android:hint="Property type"
+                android:textColorHint="@color/darkBackground">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -204,7 +205,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
-                android:hint="Property Ratting">
+                android:hint="Property Ratting"
+                android:textColorHint="@color/darkBackground">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
