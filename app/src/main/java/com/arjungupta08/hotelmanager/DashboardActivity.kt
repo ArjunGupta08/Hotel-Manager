@@ -6,6 +6,7 @@ import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.arjungupta08.hotelmanager.dashboard.DashboardFragment
 import com.arjungupta08.hotelmanager.databinding.ActivityDashboardActivtyBinding
@@ -59,16 +60,18 @@ class DashboardActivity : AppCompatActivity() {
 
         }
 
-        binding.quickReservation.setOnClickListener {
+        binding.quickAdd.setOnClickListener {
 
         }
     }
     private fun sideNav() {
         binding.dashboardCard.setOnClickListener {
             isCardSelected(binding.dashboardCard, binding.dashboardTxt)
+            binding.quickAdd.isVisible = true
         }
         binding.addPropertyCard.setOnClickListener {
             isCardSelected(binding.addPropertyCard, binding.addPropertyTxt)
+            binding.quickAdd.isVisible = false
         }
         binding.helpCard.setOnClickListener {
             isCardSelected(binding.helpCard, binding.helpTxt)
@@ -124,11 +127,11 @@ class DashboardActivity : AppCompatActivity() {
         transaction.replace(R.id.dashboardFragmentContainer,fragment)
         transaction.commit()
 
-        bottomSlideInAnimation(binding.dashboardFragmentContainer, applicationContext)
-
         if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
             binding.drawerLayout.closeDrawer(GravityCompat.START)
         }
+
+        bottomSlideInAnimation(binding.dashboardFragmentContainer, applicationContext)
     }
 
 }
