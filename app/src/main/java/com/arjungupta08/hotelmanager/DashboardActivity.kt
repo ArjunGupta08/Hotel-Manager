@@ -24,6 +24,7 @@ class DashboardActivity : AppCompatActivity() {
 
         replaceFragment(DashboardFragment())
         toolBar()
+        sideNav()
 
     }
     private fun toolBar() {
@@ -62,6 +63,17 @@ class DashboardActivity : AppCompatActivity() {
 
         }
     }
+    private fun sideNav() {
+        binding.dashboardCard.setOnClickListener {
+            isCardSelected(binding.dashboardCard, binding.dashboardTxt)
+        }
+        binding.addPropertyCard.setOnClickListener {
+            isCardSelected(binding.addPropertyCard, binding.addPropertyTxt)
+        }
+        binding.helpCard.setOnClickListener {
+            isCardSelected(binding.helpCard, binding.helpTxt)
+        }
+    }
     private fun isCardSelected(card: MaterialCardView, text: TextView) {
 
         binding.dashboardCard.setCardBackgroundColor(
@@ -73,7 +85,33 @@ class DashboardActivity : AppCompatActivity() {
         binding.dashboardTxt.setTextColor(
             ContextCompat.getColor(
                 applicationContext,
-                R.color.darkBackground
+                R.color.black
+            )
+        )
+
+        binding.addPropertyCard.setCardBackgroundColor(
+            ContextCompat.getColor(
+                applicationContext,
+                R.color.white
+            )
+        )
+        binding.addPropertyTxt.setTextColor(
+            ContextCompat.getColor(
+                applicationContext,
+                R.color.black
+            )
+        )
+
+        binding.helpCard.setCardBackgroundColor(
+            ContextCompat.getColor(
+                applicationContext,
+                R.color.white
+            )
+        )
+        binding.helpTxt.setTextColor(
+            ContextCompat.getColor(
+                applicationContext,
+                R.color.black
             )
         )
 
