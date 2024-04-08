@@ -26,39 +26,12 @@ class SignUpFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         bindingMobile.cardCreateAccount.setOnClickListener {
-            if (bindingMobile.firstNameText.text!!.isEmpty()) {
-                shakeAnimation(bindingMobile.firstNameLayout, requireContext())
-                bindingMobile.lastNameLayout.isErrorEnabled = false
-                bindingMobile.phoneLayout.isErrorEnabled = false
-                bindingMobile.emailLayout.isErrorEnabled = false
-                bindingMobile.passwordLayout.isErrorEnabled = false
-                bindingMobile.firstNameLayout.error = ("Please enter your First Name")
-            } else if (bindingMobile.lastNameText.text!!.isEmpty()) {
-                shakeAnimation(bindingMobile.lastNameLayout, requireContext())
-                bindingMobile.firstNameLayout.isErrorEnabled = false
-                bindingMobile.phoneLayout.isErrorEnabled = false
-                bindingMobile.emailLayout.isErrorEnabled = false
-                bindingMobile.passwordLayout.isErrorEnabled = false
-                bindingMobile.lastNameLayout.error = ("Please enter your Last Name")
-            } else if (bindingMobile.phoneText.text!!.isEmpty()) {
-                shakeAnimation(bindingMobile.phoneLayout, requireContext())
-                bindingMobile.firstNameLayout.isErrorEnabled = false
-                bindingMobile.lastNameLayout.isErrorEnabled = false
-                bindingMobile.emailLayout.isErrorEnabled = false
-                bindingMobile.passwordLayout.isErrorEnabled = false
-                bindingMobile.phoneLayout.error = ("Please enter your Phone number")
-            } else if (bindingMobile.emailText.text!!.isEmpty()) {
+            if (bindingMobile.emailText.text!!.isEmpty()) {
                 shakeAnimation(bindingMobile.emailLayout, requireContext())
-                bindingMobile.firstNameLayout.isErrorEnabled = false
-                bindingMobile.lastNameLayout.isErrorEnabled = false
-                bindingMobile.phoneLayout.isErrorEnabled = false
                 bindingMobile.passwordLayout.isErrorEnabled = false
                 bindingMobile.emailLayout.error = ("Please enter your email")
             } else if (bindingMobile.passwordText.text!!.isEmpty()) {
                 shakeAnimation(bindingMobile.passwordLayout, requireContext())
-                bindingMobile.firstNameLayout.isErrorEnabled = false
-                bindingMobile.lastNameLayout.isErrorEnabled = false
-                bindingMobile.phoneLayout.isErrorEnabled = false
                 bindingMobile.emailLayout.isErrorEnabled = false
                 bindingMobile.passwordLayout.error = ("Please enter your password")
             } else {

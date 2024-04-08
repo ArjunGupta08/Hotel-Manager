@@ -62,9 +62,25 @@ class SecondOnboardingActivity : AppCompatActivity() {
         }
 
         bindingMobile.cardSingleNext.setOnClickListener {
-            if (bindingMobile.propertyText.text!!.isEmpty()) {
+
+            if (bindingMobile.firstNameText.text!!.isEmpty()) {
+                shakeAnimation(bindingMobile.firstNameLayout, applicationContext)
+                bindingMobile.firstNameLayout.error = ("Please enter your First Name")
+            } else if (bindingMobile.lastNameText.text!!.isEmpty()) {
+                shakeAnimation(bindingMobile.lastNameLayout, applicationContext)
+                bindingMobile.firstNameLayout.isErrorEnabled = false
+                bindingMobile.lastNameLayout.error = ("Please enter your Last Name")
+            } else if (bindingMobile.phoneText.text!!.isEmpty() || bindingMobile.phoneText.text.toString().length < 10) {
+                shakeAnimation(bindingMobile.phoneLayout, applicationContext)
+                bindingMobile.firstNameLayout.isErrorEnabled = false
+                bindingMobile.lastNameLayout.isErrorEnabled = false
+                bindingMobile.phoneLayout.error = ("Please enter your Phone number")
+            } else if (bindingMobile.propertyText.text!!.isEmpty()) {
                 shakeAnimation(bindingMobile.propertyLayout,applicationContext)
                 bindingMobile.propertyLayout.error = "Please enter property name"
+                bindingMobile.firstNameLayout.isErrorEnabled = false
+                bindingMobile.lastNameLayout.isErrorEnabled = false
+                bindingMobile.phoneLayout.isErrorEnabled = false
             } else if (bindingMobile.addressText.text!!.isEmpty()) {
                 bindingMobile.addressLayout.error = "Please enter property address"
                 shakeAnimation(bindingMobile.addressLayout,applicationContext)

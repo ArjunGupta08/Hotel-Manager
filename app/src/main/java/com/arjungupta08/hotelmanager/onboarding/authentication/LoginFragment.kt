@@ -28,21 +28,19 @@ class LoginFragment : Fragment() {
 
         bindingMobile.signInCard.setOnClickListener {
 
-            if (bindingMobile.emailET.text!!.isEmpty()) {
+            if (bindingMobile.emailText.text!!.isEmpty()) {
                 shakeAnimation(bindingMobile.emailLayout, requireContext())
-                bindingMobile.emailLayout.error = "Please enter username"
-
-            } else if (bindingMobile.passwordET.text!!.isEmpty()) {
-                bindingMobile.passwordLayout.error = "Please enter password"
+                bindingMobile.passwordLayout.isErrorEnabled = false
+                bindingMobile.emailLayout.error = ("Please enter your email")
+            } else if (bindingMobile.passwordText.text!!.isEmpty()) {
                 shakeAnimation(bindingMobile.passwordLayout, requireContext())
                 bindingMobile.emailLayout.isErrorEnabled = false
-
+                bindingMobile.passwordLayout.error = ("Please enter your password")
             } else {
                 bindingMobile.emailLayout.isErrorEnabled = false
                 bindingMobile.passwordLayout.isErrorEnabled = false
-                email = bindingMobile.emailET.text.toString()
-                password = bindingMobile.passwordET.text.toString()
-
+                email = bindingMobile.emailText.text.toString()
+                password = bindingMobile.passwordText.text.toString()
                 try {
 //                    login()
                 } catch (e: Exception) {
