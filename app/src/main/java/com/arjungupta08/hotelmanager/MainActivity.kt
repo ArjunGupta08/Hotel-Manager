@@ -7,6 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import com.arjungupta08.hotelmanager.onboarding.authentication.LoginActivity
 import com.arjungupta08.hotelmanager.databinding.ActivityMainBinding
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -16,10 +17,18 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val user = FirebaseAuth.getInstance().currentUser
+
         val handler = Handler(Looper.getMainLooper())
         handler.postDelayed({
-            startActivity(Intent(this, LoginActivity::class.java))
-            finish()
+
+            if (user != null) {
+                startActivity(Intent(this, DashboardActivity::class.java))
+            } else {
+                startActivity(Intent(this, LoginActivity::class.java))
+                finish()
+            }
+
         }, 1000)
 
     }
