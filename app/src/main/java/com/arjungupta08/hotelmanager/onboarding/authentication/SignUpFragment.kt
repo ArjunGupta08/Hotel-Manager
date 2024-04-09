@@ -1,17 +1,24 @@
 package com.arjungupta08.hotelmanager.onboarding.authentication
 
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.arjungupta08.hotelmanager.databinding.FragmentSignUpBinding
 import com.arjungupta08.hotelmanager.onboarding.FirstOnboarding
 import com.arjungupta08.hotelmanager.utils.shakeAnimation
+import com.arjungupta08.hotelmanager.utils.showProgressDialog
+import com.google.firebase.auth.FirebaseAuth
 
 class SignUpFragment : Fragment() {
     private lateinit var bindingMobile : FragmentSignUpBinding
+
+    private lateinit var progressDialog : Dialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,13 +41,34 @@ class SignUpFragment : Fragment() {
                 shakeAnimation(bindingMobile.passwordLayout, requireContext())
                 bindingMobile.emailLayout.isErrorEnabled = false
                 bindingMobile.passwordLayout.error = ("Please enter your password")
+            } else if (bindingMobile.passwordText.text.toString() != bindingMobile.confirmPasswordText.text.toString()) {
+                shakeAnimation(bindingMobile.passwordLayout, requireContext())
+                bindingMobile.emailLayout.isErrorEnabled = false
+                bindingMobile.passwordLayout.error = ("Password is not matching")
+                bindingMobile.confirmPasswordLayout.error = ("Password is not matching")
             } else {
-                signUpMobile()
+                bindingMobile.emailLayout.isErrorEnabled = false
+                bindingMobile.passwordLayout.isErrorEnabled = false
+                bindingMobile.confirmPasswordLayout.isErrorEnabled = false
+
+                progressDialog = showProgressDialog(requireContext())
+                signUpMobile(bindingMobile.emailText.text.toString(), bindingMobile.passwordText.text.toString())
             }
         }
     }
 
-    private fun signUpMobile() {
-        startActivity(Intent(context, FirstOnboarding::class.java))
+    private fun signUpMobile(email : String, password : String) {
+        val auth = FirebaseAuth.getInstance()
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnSuccessListener {
+                progressDialog.dismiss()
+                startActivity(Intent(context, FirstOnboarding::class.java))
+                activity?.finish()
+            }
+            .addOnFailureListener {
+                progressDialog.dismiss()
+                Log.e("SignUp", it.message.toString())
+                Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT).show()
+            }
     }
 }
