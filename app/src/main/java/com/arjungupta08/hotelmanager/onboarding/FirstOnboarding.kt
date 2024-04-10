@@ -13,6 +13,12 @@ class FirstOnboarding : AppCompatActivity() {
 
     private var isSingleSelected = false
     private var isChainSelected = false
+
+    private val email : String
+        get() = intent.getStringExtra("email").toString()
+    private val password : String
+        get() = intent.getStringExtra("password").toString()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bindingMobile = ActivityFirstOnboardingBinding.inflate(layoutInflater)
@@ -50,9 +56,13 @@ class FirstOnboarding : AppCompatActivity() {
         bindingMobile.cardSingleNext.setOnClickListener {
             if (isSingleSelected) {
                 val intent = Intent(this, SecondOnboardingActivity::class.java)
+                intent.putExtra("email", email)
+                intent.putExtra("password", password)
                 startActivity(intent)
             } else if (isChainSelected){
                 val intent = Intent(this, SecondOnboardingActivity::class.java)
+                intent.putExtra("email", email)
+                intent.putExtra("password", password)
                 startActivity(intent)
             } else{
                 Toast.makeText(this, "Please Select Property Type", Toast.LENGTH_SHORT).show()
