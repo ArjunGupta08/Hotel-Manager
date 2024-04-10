@@ -3,17 +3,14 @@ package com.arjungupta08.hotelmanager.onboarding.authentication
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.arjungupta08.hotelmanager.databinding.FragmentSignUpBinding
 import com.arjungupta08.hotelmanager.onboarding.FirstOnboarding
 import com.arjungupta08.hotelmanager.utils.shakeAnimation
 import com.arjungupta08.hotelmanager.utils.showProgressDialog
-import com.google.firebase.auth.FirebaseAuth
 
 class SignUpFragment : Fragment() {
     private lateinit var bindingMobile : FragmentSignUpBinding
@@ -52,23 +49,12 @@ class SignUpFragment : Fragment() {
                 bindingMobile.confirmPasswordLayout.isErrorEnabled = false
 
                 progressDialog = showProgressDialog(requireContext())
-                signUpMobile(bindingMobile.emailText.text.toString(), bindingMobile.passwordText.text.toString())
+
+                val intent = Intent(context, FirstOnboarding::class.java)
+                intent.putExtra("email", bindingMobile.emailText.text.toString())
+                intent.putExtra("password", bindingMobile.passwordText.text.toString())
+                startActivity(intent)
             }
         }
-    }
-
-    private fun signUpMobile(email : String, password : String) {
-        val auth = FirebaseAuth.getInstance()
-        auth.createUserWithEmailAndPassword(email, password)
-            .addOnSuccessListener {
-                progressDialog.dismiss()
-                startActivity(Intent(context, FirstOnboarding::class.java))
-                activity?.finish()
-            }
-            .addOnFailureListener {
-                progressDialog.dismiss()
-                Log.e("SignUp", it.message.toString())
-                Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT).show()
-            }
     }
 }
