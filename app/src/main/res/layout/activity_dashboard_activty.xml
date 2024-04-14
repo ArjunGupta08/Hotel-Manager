@@ -142,7 +142,7 @@
                             android:id="@+id/profile"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
-                            app:shapeAppearance="@style/RoundedCornerImage_Circle"
+                            app:shapeAppearance="@style/RoundedCornerImage_10"
                             android:layout_marginStart="20dp"
                             android:src="@color/black"/>
 
@@ -246,7 +246,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="Add Property"
                                     android:fontFamily="@font/roboto"
-                                    android:textColor="@color/white"
+                                    android:textColor="@color/darkBackground"
                                     android:layout_marginStart="10dp"
                                     android:textSize="@dimen/H5" />
                             </LinearLayout>

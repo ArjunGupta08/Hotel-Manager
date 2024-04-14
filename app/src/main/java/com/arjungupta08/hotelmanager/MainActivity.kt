@@ -21,15 +21,13 @@ class MainActivity : AppCompatActivity() {
 
         val handler = Handler(Looper.getMainLooper())
         handler.postDelayed({
-
             if (user != null) {
                 startActivity(Intent(this, DashboardActivity::class.java))
+                finish()
             } else {
                 startActivity(Intent(this, LoginActivity::class.java))
                 finish()
             }
-
         }, 1000)
-
     }
 }

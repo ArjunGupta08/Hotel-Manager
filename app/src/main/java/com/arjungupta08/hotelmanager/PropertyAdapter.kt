@@ -4,8 +4,10 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 
 class PropertyAdapter(val context: Context, private val itemList: List<PropertyDataClass>) : RecyclerView.Adapter<PropertyAdapter.ViewHolder>() {
 
@@ -20,7 +22,8 @@ class PropertyAdapter(val context: Context, private val itemList: List<PropertyD
         holder.hotelName.text = item.hotelName
         holder.location.text = item.location
         holder.ratingText.text = item.ratingText
-        holder.rooms.text = item.rooms
+        holder.rooms.text = "${item.rooms} Rooms"
+        Glide.with(context).load(item.imageUrl).into(holder.propertyLogo)
 
     }
 
@@ -34,6 +37,7 @@ class PropertyAdapter(val context: Context, private val itemList: List<PropertyD
         val location: TextView = itemView.findViewById(R.id.location)
         val ratingText: TextView = itemView.findViewById(R.id.ratingText)
         val rooms: TextView = itemView.findViewById(R.id.rooms)
+        val propertyLogo : ImageView = itemView.findViewById(R.id.propertyLogo)
 
     }
 }

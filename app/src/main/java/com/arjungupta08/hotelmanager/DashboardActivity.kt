@@ -1,5 +1,6 @@
 package com.arjungupta08.hotelmanager
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment
 import com.arjungupta08.hotelmanager.dashboard.DashboardFragment
 import com.arjungupta08.hotelmanager.dashboard.addProperty.AddPropertyFragment
 import com.arjungupta08.hotelmanager.databinding.ActivityDashboardActivtyBinding
+import com.arjungupta08.hotelmanager.onboarding.ThirdOnboardingActivity
 import com.arjungupta08.hotelmanager.onboarding.UserData
 import com.arjungupta08.hotelmanager.utils.UtilityCollections
 import com.arjungupta08.hotelmanager.utils.bottomSlideInAnimation
@@ -30,7 +32,7 @@ class DashboardActivity : AppCompatActivity() {
         binding = ActivityDashboardActivtyBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        replaceFragment(AddPropertyFragment())
+        replaceFragment(DashboardFragment())
         toolBar()
         sideNav()
 
@@ -95,7 +97,10 @@ class DashboardActivity : AppCompatActivity() {
         }
 
         binding.quickAdd.setOnClickListener {
-            replaceFragment(AddPropertyFragment())
+            val intent = Intent(this, ThirdOnboardingActivity::class.java)
+            intent.putExtra("fromDash", true)
+            startActivity(intent)
+//            replaceFragment(AddPropertyFragment())
         }
     }
     private fun sideNav() {
@@ -105,7 +110,10 @@ class DashboardActivity : AppCompatActivity() {
         }
         binding.addPropertyCard.setOnClickListener {
             isCardSelected(binding.addPropertyCard, binding.addPropertyTxt)
-            replaceFragment(AddPropertyFragment())
+//            replaceFragment(AddPropertyFragment())
+            val intent = Intent(this, ThirdOnboardingActivity::class.java)
+            intent.putExtra("fromDash", true)
+            startActivity(intent)
             binding.quickAdd.isVisible = false
         }
         binding.helpCard.setOnClickListener {

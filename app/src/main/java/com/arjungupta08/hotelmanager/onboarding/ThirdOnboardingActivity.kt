@@ -1,5 +1,6 @@
 package com.arjungupta08.hotelmanager.onboarding
 
+import android.app.Dialog
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -7,32 +8,49 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import com.arjungupta08.hotelmanager.BuildConfig
 import com.arjungupta08.hotelmanager.DashboardActivity
+import com.arjungupta08.hotelmanager.PropertyDataClass
 import com.arjungupta08.hotelmanager.R
 import com.arjungupta08.hotelmanager.databinding.ActivityThirdOnboardingBinding
+import com.arjungupta08.hotelmanager.utils.UtilityCollections
 import com.arjungupta08.hotelmanager.utils.fetchCountryName
 import com.arjungupta08.hotelmanager.utils.rightToLeftEditImageAnimation
 import com.arjungupta08.hotelmanager.utils.setMargins
 import com.arjungupta08.hotelmanager.utils.shakeAnimation
+import com.arjungupta08.hotelmanager.utils.showProgressDialog
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.AutocompleteSessionToken
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest
 import com.google.android.libraries.places.api.net.PlacesClient
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import java.lang.IndexOutOfBoundsException
+import java.util.UUID
 
 class ThirdOnboardingActivity : AppCompatActivity() {
     private lateinit var bindingMobile : ActivityThirdOnboardingBinding
 
     private var roomCount = 1
 
+    private var downloadUrl = ""
     private var imageUri: Uri ?= null
+
+    // instance for firebase storage and StorageReference
+    private var storageReference: StorageReference? = null
+    private var firebaseDatabase : FirebaseDatabase ?= null
+    private var storage: FirebaseStorage? = null
+
+    private lateinit var progressDialog : Dialog
 
     private var isImageSelected = false
     private var isImageEdit = false
@@ -55,6 +73,15 @@ class ThirdOnboardingActivity : AppCompatActivity() {
         bindingMobile = ActivityThirdOnboardingBinding.inflate(layoutInflater)
         setContentView(bindingMobile.root)
 
+        val fromDash = intent.getBooleanExtra("fromDash", false)
+        if (fromDash) {
+            bindingMobile.cardSkip.visibility = View.GONE
+        }
+
+        firebaseDatabase = FirebaseDatabase.getInstance()
+        // image Upload
+        storage = FirebaseStorage.getInstance()
+        storageReference = storage!!.reference
 
         // Select Image From Gallery
         imageSelectionMobile()
@@ -116,21 +143,71 @@ class ThirdOnboardingActivity : AppCompatActivity() {
                 bindingMobile.addressLayout.isErrorEnabled = false
                 bindingMobile.stateLayout.isErrorEnabled = false
                 bindingMobile.propertyLayout.isErrorEnabled = false
-                sendDataMobile()
+                progressDialog = showProgressDialog(this)
+                uploadImage()
             }
         }
     }
+    private fun uploadImage() {
+        val filePath = storageReference?.child("images/" + UUID.randomUUID().toString())
+
+        filePath?.putFile(imageUri!!)?.addOnCompleteListener {
+            filePath.downloadUrl.addOnSuccessListener {
+                progressDialog.dismiss()
+                downloadUrl = it.toString()
+                Log.d("url", downloadUrl)
+                sendDataMobile()
+            }
+                .addOnFailureListener {
+                    progressDialog.dismiss()
+                    Log.d("imageNotUploaded", it.message.toString())
+                }
+        }
+            ?.addOnFailureListener {
+                progressDialog.dismiss()
+                Log.d("urlF", it.message.toString())
+            }
+    }
 
     private fun sendDataMobile() {
+        val propertyName = bindingMobile.propertyText.text.toString()
         val starCategory = bindingMobile.ratingBar.rating.toString()
         val roomsInProperty = bindingMobile.roomCount.text.toString()
-        val intent = (Intent(this, DashboardActivity::class.java))
-//                        val options = ActivityOptions.makeSceneTransitionAnimation(this,
-//                        android.util.Pair(bindingMobile!!.logo,"logo_img"),
-//                        android.util.Pair(bindingMobile!!.onBoardingImg,"onBoardingImg")
-//                        startActivity(intent, options)
-        startActivity(intent)
-        finish()
+        val contact = bindingMobile.phoneText.text.toString()
+        val locale = bindingMobile.addressText.text.toString()
+        val country = bindingMobile.countryText.text.toString()
+        val state = bindingMobile.stateText.text.toString()
+        val address = "$locale $state $country"
+        val website = bindingMobile.websiteText.text.toString()
+
+        val property = PropertyDataClass(
+            downloadUrl,
+            propertyName,
+            starCategory,
+            roomsInProperty,
+            contact,
+            address,
+            website
+        )
+
+        val documentReference = UtilityCollections.getCollectionReferenceForProperties().document()
+        documentReference.set(property)
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    progressDialog.dismiss()
+                    val intent = Intent(this, DashboardActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                } else {
+                    progressDialog.dismiss()
+                    Log.d("completedElse", it.exception.toString())
+                }
+            }
+            .addOnFailureListener {
+                progressDialog.dismiss()
+                Log.d("completedElse", it.message.toString())
+                Toast.makeText(this, it.message.toString(), Toast.LENGTH_SHORT).show()
+            }
     }
 
     private fun imageSelectionMobile() {
@@ -198,7 +275,7 @@ class ThirdOnboardingActivity : AppCompatActivity() {
             val lastThreeWords = extractLastThreeWords(selectedAddress)
             println("Last Three Words: $lastThreeWords")
             try {
-                autoCompleteTextView.setText(removeLastThreeWords(selectedAddress))
+                autoCompleteTextView.setText("${removeLastThreeWords(selectedAddress)}, ${lastThreeWords.get(0)}")
 //                bindingMobile!!.cityText.setText(lastThreeWords.get(0))
                 bindingMobile.stateText.setText(lastThreeWords[1])
                 bindingMobile.countryText.setText(lastThreeWords[2])
