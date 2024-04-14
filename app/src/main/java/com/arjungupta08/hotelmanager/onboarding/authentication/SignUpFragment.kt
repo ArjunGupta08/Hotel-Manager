@@ -3,6 +3,8 @@ package com.arjungupta08.hotelmanager.onboarding.authentication
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -50,10 +52,14 @@ class SignUpFragment : Fragment() {
 
                 progressDialog = showProgressDialog(requireContext())
 
-                val intent = Intent(context, FirstOnboarding::class.java)
-                intent.putExtra("email", bindingMobile.emailText.text.toString())
-                intent.putExtra("password", bindingMobile.passwordText.text.toString())
-                startActivity(intent)
+                Handler(Looper.getMainLooper()).postDelayed({
+                    progressDialog.dismiss()
+
+                    val intent = Intent(context, FirstOnboarding::class.java)
+                    intent.putExtra("email", bindingMobile.emailText.text.toString())
+                    intent.putExtra("password", bindingMobile.passwordText.text.toString())
+                    startActivity(intent)
+                },800)
             }
         }
     }

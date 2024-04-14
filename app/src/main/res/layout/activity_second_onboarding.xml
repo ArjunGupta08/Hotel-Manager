@@ -91,8 +91,8 @@
                             android:textSize="@dimen/H5"
                             android:textColor="@color/darkBackground"
                             app:layout_constraintEnd_toEndOf="parent"
-                            android:text="Upload Property Logo or Image"/>
-
+                            app:layout_constraintHorizontal_bias="0.1"
+                            android:text="Upload your Image"/>
 
                         <LinearLayout
                             android:id="@+id/imageEditLayout"
@@ -214,112 +214,6 @@
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/property_layout"
-                            android:layout_width="0dp"
-                            android:layout_height="50dp"
-                            style="@style/TextInputLayoutStyle"
-                            android:hint="Property Name"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginHorizontal="21dp"
-                            app:endIconMode="clear_text"
-                            app:endIconTint="@color/black"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/phoneLayout"
-                            app:layout_constraintStart_toStartOf="parent">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/property_text"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:textSize="@dimen/H5"
-                                android:fontFamily="@font/roboto"
-                                android:inputType="text"
-                                android:textColorHint="@color/darkBackground"
-                                android:textColor="@color/darkBackground" />
-
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/address_layout"
-                            android:layout_width="0dp"
-                            android:layout_height="50dp"
-                            style="@style/TextInputLayoutStyle"
-                            android:hint="Property Address"
-                            android:layout_marginTop="10dp"
-                            app:endIconMode="clear_text"
-                            app:endIconTint="@color/black"
-                            android:layout_marginHorizontal="21dp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/property_layout">
-
-                            <AutoCompleteTextView
-                                android:id="@+id/address_text"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:textSize="@dimen/H5"
-                                android:fontFamily="@font/roboto"
-                                android:inputType="text"
-                                android:paddingStart="15dp"
-                                android:textColorHint="@color/darkBackground"
-                                android:textColor="@color/darkBackground" />
-
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/country_layout"
-                            android:layout_width="0dp"
-                            android:layout_height="50dp"
-                            style="@style/TextInputLayoutStyle"
-                            android:hint="Country"
-                            android:layout_marginTop="10dp"
-                            app:endIconMode="clear_text"
-                            app:endIconTint="@color/black"
-                            app:layout_constraintEnd_toStartOf="@id/state_layout"
-                            app:layout_constraintTop_toBottomOf="@id/address_layout"
-                            app:layout_constraintStart_toStartOf="@id/address_layout">
-
-                            <AutoCompleteTextView
-                                android:id="@+id/country_text"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:fontFamily="@font/roboto"
-                                android:inputType="text"
-                                android:textSize="@dimen/H5"
-                                android:paddingStart="15dp"
-                                android:textColorHint="@color/darkBackground"
-                                android:textColor="@color/darkBackground"/>
-
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/state_layout"
-                            android:layout_width="0dp"
-                            android:layout_height="50dp"
-                            style="@style/TextInputLayoutStyle"
-                            android:hint="State"
-                            android:layout_marginStart="10dp"
-                            app:endIconMode="clear_text"
-                            app:endIconTint="@color/black"
-                            app:layout_constraintTop_toTopOf="@id/country_layout"
-                            app:layout_constraintEnd_toEndOf="@id/address_layout"
-                            app:layout_constraintBottom_toBottomOf="@id/country_layout"
-                            app:layout_constraintStart_toEndOf="@id/country_layout">
-
-                            <AutoCompleteTextView
-                                android:id="@+id/state_text"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:fontFamily="@font/roboto"
-                                android:inputType="text"
-                                android:textSize="@dimen/H5"
-                                android:paddingStart="15dp"
-                                android:textColorHint="@color/darkBackground"
-                                android:textColor="@color/darkBackground"/>
-
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/website_layout"
                             android:layout_width="0dp"
                             android:layout_height="50dp"
@@ -328,9 +222,9 @@
                             android:layout_marginTop="10dp"
                             app:endIconMode="clear_text"
                             app:endIconTint="@color/black"
-                            app:layout_constraintStart_toStartOf="@id/country_layout"
-                            app:layout_constraintTop_toBottomOf="@id/state_layout"
-                            app:layout_constraintEnd_toEndOf="@id/state_layout">
+                            app:layout_constraintStart_toStartOf="@id/phoneLayout"
+                            app:layout_constraintTop_toBottomOf="@id/phoneLayout"
+                            app:layout_constraintEnd_toEndOf="@id/phoneLayout">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/website_text"
@@ -338,7 +232,7 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="@font/roboto"
                                 android:textSize="@dimen/H5"
-                                android:inputType="text"
+                                android:inputType="textUri"
                                 android:textColorHint="@color/darkBackground"
                                 android:textColor="@color/darkBackground" />
 
