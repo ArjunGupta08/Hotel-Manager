@@ -2,6 +2,7 @@ package com.arjungupta08.hotelmanager
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.content.ContextCompat
@@ -11,8 +12,13 @@ import androidx.fragment.app.Fragment
 import com.arjungupta08.hotelmanager.dashboard.DashboardFragment
 import com.arjungupta08.hotelmanager.dashboard.addProperty.AddPropertyFragment
 import com.arjungupta08.hotelmanager.databinding.ActivityDashboardActivtyBinding
+import com.arjungupta08.hotelmanager.onboarding.UserData
+import com.arjungupta08.hotelmanager.utils.UtilityCollections
 import com.arjungupta08.hotelmanager.utils.bottomSlideInAnimation
+import com.bumptech.glide.Glide
 import com.google.android.material.card.MaterialCardView
+import com.google.firebase.firestore.QueryDocumentSnapshot
+import com.google.firebase.firestore.toObject
 
 class DashboardActivity : AppCompatActivity() {
     private lateinit var binding : ActivityDashboardActivtyBinding
@@ -28,7 +34,34 @@ class DashboardActivity : AppCompatActivity() {
         toolBar()
         sideNav()
 
+        getUser()
+
     }
+
+    private fun getUser() {
+        val user = UtilityCollections.getCollectionReferenceForUser().get()
+        user.addOnCompleteListener { result ->
+                if (result.isSuccessful) {
+                    try {
+                        for (document : QueryDocumentSnapshot in result.result) {
+                            val userList = document.toObject(UserData::class.java)
+                            Log.d("TAG", "${document.id} => ${document.data}")
+                            binding.phoneNumber.text = userList.phone
+                            "${userList.firstName} ${userList.lastName}".also { binding.name.text = it }
+                            Glide.with(this).load(userList.imageUrl).into(binding.profile)
+                        }
+                    } catch (e:Exception) {
+                        Log.d("e" , ": $e")
+                    }
+                }
+
+            }
+            .addOnFailureListener { exception ->
+                Log.w("TAG", "Error getting documents: ", exception)
+            }
+
+    }
+
     private fun toolBar() {
 
         toggle = ActionBarDrawerToggle(

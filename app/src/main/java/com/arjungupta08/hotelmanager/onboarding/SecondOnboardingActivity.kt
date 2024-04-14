@@ -19,7 +19,6 @@ import com.arjungupta08.hotelmanager.utils.setMargins
 import com.arjungupta08.hotelmanager.utils.shakeAnimation
 import com.arjungupta08.hotelmanager.utils.showProgressDialog
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -36,11 +35,6 @@ class SecondOnboardingActivity : AppCompatActivity() {
     private var isImageEdit = false
 
     // instance for firebase storage and StorageReference
-
-
-    private var databaseReference: DatabaseReference? = null
-    private var dbRef:DatabaseReference? = null
-
     private var storageReference: StorageReference? = null
     private var firebaseDatabase : FirebaseDatabase ?= null
     private var storage: FirebaseStorage? = null
@@ -79,8 +73,6 @@ class SecondOnboardingActivity : AppCompatActivity() {
         storage = FirebaseStorage.getInstance()
         storageReference = storage!!.reference
 
-         databaseReference = FirebaseDatabase.getInstance().reference.child("User")
-
         bindingMobile.cardSingleNext.setOnClickListener {
             if (bindingMobile.firstNameText.text!!.isEmpty()) {
                 shakeAnimation(bindingMobile.firstNameLayout, applicationContext)
@@ -101,10 +93,12 @@ class SecondOnboardingActivity : AppCompatActivity() {
         }
     }
 
+    // Register User
     private fun signUpMobile(email : String, password : String) {
         val auth = FirebaseAuth.getInstance()
         auth.createUserWithEmailAndPassword(email, password)
             .addOnSuccessListener {
+                progressDialog.dismiss()
                 uploadImage()
             }
             .addOnFailureListener {
@@ -114,7 +108,10 @@ class SecondOnboardingActivity : AppCompatActivity() {
             }
     }
 
+    // Upload User Data in the order ==> Image --> User Data
     private fun uploadImage() {
+        progressDialog.show()
+
         val filePath = storageReference?.child("images/"+ UUID.randomUUID().toString())
 
         filePath?.putFile(imageUri!!)?.addOnCompleteListener {
@@ -138,19 +135,14 @@ class SecondOnboardingActivity : AppCompatActivity() {
         progressDialog.show()
         val userData = UserData(downloadUrl,bindingMobile.firstNameText.text.toString(), bindingMobile.lastNameText.text.toString(), bindingMobile.phoneText.text.toString(), bindingMobile.websiteText.text.toString())
 
-//        databaseReference?.setValue(userData)?.addOnSuccessListener {
-//                progressDialog.dismiss()
-//                startActivity(Intent(this, ThirdOnboardingActivity::class.java))
-//                finish()
-//                Log.d("completedElse", it.toString())
-//        }
         val documentReference = UtilityCollections.getCollectionReferenceForUser().document()
         documentReference.set(userData)
             .addOnCompleteListener {
                 if (it.isSuccessful) {
                     progressDialog.dismiss()
-                    startActivity(Intent(this, ThirdOnboardingActivity::class.java))
-                    finish()
+                    val intent = Intent(this, ThirdOnboardingActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
                 } else {
                     progressDialog.dismiss()
                     Log.d("completedElse", it.exception.toString())
