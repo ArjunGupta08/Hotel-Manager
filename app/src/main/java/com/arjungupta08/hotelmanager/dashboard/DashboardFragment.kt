@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.arjungupta08.hotelmanager.PropertyAdapter
+import com.arjungupta08.hotelmanager.PropertyData
 import com.arjungupta08.hotelmanager.PropertyDataClass
 import com.arjungupta08.hotelmanager.R
 import com.arjungupta08.hotelmanager.databinding.FragmentDashboardBinding
@@ -24,7 +25,7 @@ class DashboardFragment : Fragment() {
 
     private lateinit var propertyAdapter: PropertyAdapter
 
-    val propertyList = arrayListOf<PropertyDataClass>()
+    val propertyList = arrayListOf<PropertyData>()
 
     lateinit var progressDialog : Dialog
 
@@ -56,7 +57,7 @@ class DashboardFragment : Fragment() {
                     for (document : QueryDocumentSnapshot in result.result) {
                         val property = document.toObject(PropertyDataClass::class.java)
                         Log.d("TAG", "${document.id} => ${document.data}")
-                        propertyList.add(property)
+                        propertyList.add(PropertyData(property, document.id))
                     }
                     progressDialog.dismiss()
                     propertyAdapter = PropertyAdapter(requireContext(), propertyList)
