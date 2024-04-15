@@ -15,16 +15,17 @@
         android:theme="@style/Theme.HotelManager"
         tools:targetApi="31">
         <activity
+            android:name=".dashboard.PropertyProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".DashboardActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".onboarding.ThirdOnboardingActivity"
             android:exported="false" />
         <activity
             android:name=".onboarding.SecondOnboardingActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".onboarding.FirstOnboarding"
             android:exported="false" />
