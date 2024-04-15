@@ -1,5 +1,6 @@
 package com.arjungupta08.hotelmanager.dashboard
 
+import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -14,6 +15,7 @@ import com.arjungupta08.hotelmanager.R
 import com.arjungupta08.hotelmanager.databinding.FragmentDashboardBinding
 import com.arjungupta08.hotelmanager.onboarding.UserData
 import com.arjungupta08.hotelmanager.utils.UtilityCollections
+import com.arjungupta08.hotelmanager.utils.showProgressDialog
 import com.bumptech.glide.Glide
 import com.google.firebase.firestore.QueryDocumentSnapshot
 
@@ -23,6 +25,9 @@ class DashboardFragment : Fragment() {
     private lateinit var propertyAdapter: PropertyAdapter
 
     val propertyList = arrayListOf<PropertyDataClass>()
+
+    lateinit var progressDialog : Dialog
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,6 +39,8 @@ class DashboardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        progressDialog = showProgressDialog(requireContext())
 
         getProperty()
 
@@ -51,13 +58,16 @@ class DashboardFragment : Fragment() {
                         Log.d("TAG", "${document.id} => ${document.data}")
                         propertyList.add(property)
                     }
+                    progressDialog.dismiss()
                     propertyAdapter = PropertyAdapter(requireContext(), propertyList)
                     binding.propertyRecyclerView.adapter = propertyAdapter
                 } catch (e:Exception) {
+                    progressDialog.dismiss()
                     Log.d("e" , ": $e")
                 }
             }
         }.addOnFailureListener { exception ->
+            progressDialog.dismiss()
                 Log.w("TAG", "Error getting documents: ", exception)
             }
     }

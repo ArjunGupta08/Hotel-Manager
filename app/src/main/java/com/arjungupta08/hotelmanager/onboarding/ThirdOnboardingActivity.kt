@@ -275,7 +275,7 @@ class ThirdOnboardingActivity : AppCompatActivity() {
             val lastThreeWords = extractLastThreeWords(selectedAddress)
             println("Last Three Words: $lastThreeWords")
             try {
-                autoCompleteTextView.setText("${removeLastThreeWords(selectedAddress)}, ${lastThreeWords.get(0)}")
+                autoCompleteTextView.setText(removeLastTwoWords(selectedAddress))
 //                bindingMobile!!.cityText.setText(lastThreeWords.get(0))
                 bindingMobile.stateText.setText(lastThreeWords[1])
                 bindingMobile.countryText.setText(lastThreeWords[2])
@@ -327,10 +327,10 @@ class ThirdOnboardingActivity : AppCompatActivity() {
             words
         }
     }
-    private fun removeLastThreeWords(input: String): String {
+    private fun removeLastTwoWords(input: String): String {
         val words = input.split(",").map { it.trim() }
-        return if (words.size >= 3) {
-            words.subList(0, words.size - 3).joinToString(", ")
+        return if (words.size >= 2) {
+            words.subList(0, words.size - 2).joinToString(", ")
         } else {
             ""
         }

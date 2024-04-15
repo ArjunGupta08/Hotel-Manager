@@ -11,7 +11,6 @@ import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.arjungupta08.hotelmanager.dashboard.DashboardFragment
-import com.arjungupta08.hotelmanager.dashboard.addProperty.AddPropertyFragment
 import com.arjungupta08.hotelmanager.databinding.ActivityDashboardActivtyBinding
 import com.arjungupta08.hotelmanager.onboarding.ThirdOnboardingActivity
 import com.arjungupta08.hotelmanager.onboarding.UserData
@@ -20,7 +19,6 @@ import com.arjungupta08.hotelmanager.utils.bottomSlideInAnimation
 import com.bumptech.glide.Glide
 import com.google.android.material.card.MaterialCardView
 import com.google.firebase.firestore.QueryDocumentSnapshot
-import com.google.firebase.firestore.toObject
 
 class DashboardActivity : AppCompatActivity() {
     private lateinit var binding : ActivityDashboardActivtyBinding
