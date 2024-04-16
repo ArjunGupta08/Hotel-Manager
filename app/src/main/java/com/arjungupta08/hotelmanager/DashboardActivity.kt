@@ -14,10 +14,12 @@ import com.arjungupta08.hotelmanager.dashboard.DashboardFragment
 import com.arjungupta08.hotelmanager.databinding.ActivityDashboardActivtyBinding
 import com.arjungupta08.hotelmanager.onboarding.ThirdOnboardingActivity
 import com.arjungupta08.hotelmanager.onboarding.UserData
+import com.arjungupta08.hotelmanager.onboarding.authentication.LoginActivity
 import com.arjungupta08.hotelmanager.utils.UtilityCollections
 import com.arjungupta08.hotelmanager.utils.bottomSlideInAnimation
 import com.bumptech.glide.Glide
 import com.google.android.material.card.MaterialCardView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.QueryDocumentSnapshot
 
 class DashboardActivity : AppCompatActivity() {
@@ -90,8 +92,11 @@ class DashboardActivity : AppCompatActivity() {
             }
         }
 
-        binding.imgNotify.setOnClickListener {
-
+        binding.signOut.setOnClickListener {
+            FirebaseAuth.getInstance().signOut()
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
         }
 
         binding.quickAdd.setOnClickListener {
